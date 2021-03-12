@@ -31,15 +31,15 @@ public class TestSet3 extends TestMethods {
     }
 
     @Test(priority = 3)
-    public void verifyDeleteBookAndReaddBook() throws ParseException {
+    public void verifyDeleteBookAndReadBook() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
 
-        addBookRequest("Testing 1");
-        String bookIDadded = TestMethods.bookID;
-        getBookByID(bookIDadded);
-        deleteBookByID(bookIDadded);
-        getBookByID(bookIDadded);
-        addBookRequest("Testing 1");
+        addBookRequest("CICD1");
+        String bookIAdded = TestMethods.bookID;
+        getBookByID(bookIAdded);
+        deleteBookByID(bookIAdded);
+        getBookByID(bookIAdded);
+        addBookRequest("CICD1");
         String actualMsg = TestMethods.responseMsg;
         Assert.assertEquals(actualMsg, "successfully added");
 
@@ -49,30 +49,34 @@ public class TestSet3 extends TestMethods {
     public void verifyGetBookByAuthorName() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
 
-        addBookPOSTRequest("Book1");
-        addBookPOSTRequest("Book2");
-        addBookPOSTRequest("Book3");
+        addBookPOSTRequest("Mock1", "Mark7");
+        addBookPOSTRequest("Mock2", "Mark7");
+        addBookPOSTRequest("Mock3", "Mark7");
 
-        int actualBookCount = getBooksAuthorName("Divya112");
+        int actualBookCount = getBooksAuthorName("Mark7");
+        System.out.println("No of Books listed for Author: "+actualBookCount);
         Assert.assertEquals(actualBookCount, 3);
 
     }
 
-    /*@Test(priority =5)
+    @Test(priority =5)
     public void verifyDeleteBookAndGetBookByAuthor() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
 
-        addBookPOSTRequest("API 1");
-        addBookPOSTRequest("API 2");
-        addBookPOSTRequest("API 3");
+        addBookPOSTRequest("BookTest11", "Long1");
+        addBookPOSTRequest("API 11", "Kayle1");
+        addBookPOSTRequest("API 21", "Kayle1");
+        addBookPOSTRequest("API 31", "Kayle1");
 
-        int bookCountbyAuthorBeforeDelete = getBooksAuthorName("boxom");
+        int bookCountOfAuthor1 = getBooksAuthorName("Long1");
+        System.out.println(bookCountOfAuthor1);
 
-        deleteBookByAuthorName("boom");
+        int bookCountOfAuthor2BeforeDelete = getBooksAuthorName("Kayle1");
 
-        int bookCountByAuthorAfterDelete = getBooksAuthorName("boxom");
+        deleteBookByAuthorName("Long1");
 
-        Assert.assertEquals(bookCountByAuthorAfterDelete, bookCountbyAuthorBeforeDelete);
+        int bookCountByAuthorAfterDelete = getBooksAuthorName("Kayle1");
 
-    }*/
+        Assert.assertEquals(bookCountByAuthorAfterDelete, bookCountOfAuthor2BeforeDelete);
+    }
 }
