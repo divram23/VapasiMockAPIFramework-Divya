@@ -30,15 +30,13 @@ public class MockTestSet extends StubMethods {
 
         Response response1 = RestAssured.given().post("/Library/Addbook.php");
 
-        Assert.assertEquals(response1.getStatusCode(), 200);
+       // Assert.assertEquals(response1.getStatusCode(), 200);
 
         JsonPath result = response1.jsonPath();
-        String resultString = response1.asString();
-
-        System.out.println(resultString);
 
         String bookName = result.get("name").toString();
-        System.out.println(bookName);
+
+        Assert.assertEquals(bookName, "WireMock Book1");
     }
 
 
@@ -52,15 +50,13 @@ public class MockTestSet extends StubMethods {
 
         Response response1 = RestAssured.given().queryParam("ID", id).get("/Library/GetBook.php");
 
-        Assert.assertEquals(response1.getStatusCode(), 200);
+        //Assert.assertEquals(response1.getStatusCode(), 200);
 
         JsonPath result = response1.jsonPath();
-        String resultString = response1.asString();
-
-        System.out.println(resultString);
-
         String bookName = result.get("name").toString();
-        System.out.println(bookName);
+
+        Assert.assertEquals(bookName, "WireMock Book1");
+
     }
 
 
@@ -74,15 +70,13 @@ public class MockTestSet extends StubMethods {
 
         Response response1 = RestAssured.given().queryParam("AuthorName", author).get("/Library/GetBook.php");
 
-        Assert.assertEquals(response1.getStatusCode(), 200);
+        //Assert.assertEquals(response1.getStatusCode(), 200);
 
         JsonPath result = response1.jsonPath();
-        String resultString = response1.asString();
-
-        System.out.println(resultString);
 
         String bookName = result.get("book_name").toString();
-        System.out.println(bookName);
+
+        Assert.assertEquals(bookName, "WireMock Book1");
     }
 
 
@@ -101,7 +95,6 @@ public class MockTestSet extends StubMethods {
         String resultString = response1.asString();
 
         System.out.println(resultString);
-
 
     }
 

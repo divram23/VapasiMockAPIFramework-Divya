@@ -1,50 +1,10 @@
 package MockTestcases;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
-
-import java.io.IOException;
-import java.net.http.HttpResponse;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class StubMethods {
-
-
-
-
-    public String httpResponse(String testURL) throws IOException {
-        String HttpUrl = "http://localhost:8089" + testURL;
-        /*try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            HttpGet get = new HttpGet(url);
-            HttpEntity entity = client.execute(get).getEntity();
-            return  EntityUtils.toString(entity, "UTF-8");
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to call " + url, e);
-        }*/
-
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpGet request = new HttpGet(HttpUrl);
-        HttpResponse response = null;
-        try {
-            response = (HttpResponse) httpClient.execute(request).getEntity();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return EntityUtils.toString((HttpEntity) response, "UTF-8");
-
-        /*//HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet("http://localhost:" + wireMockServer.port() + "/some/thing");
-        HttpResponse response = client.execute(request)*/
-
-    }
-
-
 
     public void stubAddBookPOSTMethod(){
 
@@ -84,8 +44,6 @@ public class StubMethods {
         getBookAuthorResponseParams.put("book_name", "WireMock Book3");
         getBookAuthorResponseParams.put("isbn", "110011");
         getBookAuthorResponseParams.put("aisle", "101");
-
-        //StringValuePattern author = authorName;
 
         stubFor(get(urlEqualTo("/Library/GetBook.php?AuthorName="+authorName))//.withQueryParam("AuthorName", authorName)
                 .willReturn(aResponse()
