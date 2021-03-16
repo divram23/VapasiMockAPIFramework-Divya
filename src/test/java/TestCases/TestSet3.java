@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class TestSet3 extends TestMethods {
 
-    @Test(priority = 1)
+    @Test(priority = 0)
     public void verifyAddBookPOSTPositiveCase() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
         addBook();
@@ -20,7 +20,7 @@ public class TestSet3 extends TestMethods {
         System.out.println("Book created with ID: "+TestMethods.bookID);
     }
 
-    @Test(priority = 2)
+    @Test(priority = 1)
     public void verifyAddBookPOSTNegativeCase() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
         addBook();
@@ -30,7 +30,7 @@ public class TestSet3 extends TestMethods {
         System.out.println("Book created with ID: "+TestMethods.responseMsg);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 2)
     public void verifyDeleteBookAndReadBook() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
 
@@ -45,7 +45,7 @@ public class TestSet3 extends TestMethods {
 
     }
 
-    @Test (priority = 4)
+    @Test (priority = 3)
     public void verifyGetBookByAuthorName() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
 
@@ -59,7 +59,7 @@ public class TestSet3 extends TestMethods {
 
     }
 
-    @Test(priority =5)
+    @Test(priority =4)
     public void verifyDeleteBookAndGetBookByAuthor() throws ParseException {
         RestAssured.baseURI = "http://216.10.245.166";
 

@@ -1,6 +1,5 @@
 package TestCases;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -15,8 +14,8 @@ import org.testng.annotations.Test;
 
 public class TestSet1 {
 
-    @Test
-    public void verifyPOSTAddBookPositiveScenario() throws JsonProcessingException {
+    @Test (priority = 0)
+    public void verifyPOSTAddBookPositiveScenario(){
 
         RestAssured.baseURI = "http://216.10.245.166";
         RequestSpecification request = RestAssured.given();
@@ -32,32 +31,10 @@ public class TestSet1 {
 
         Assert.assertEquals(response12.getStatusCode(), 200);
 
-
-        /*int statusCode = response.getStatusCode();
-        System.out.println("POST - AddBook Response Status: " + statusCode);
-        String json = response.asString();
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-
-        AddBookPostResponse[] addBookPostResponses = mapper.readValue(json, AddBookPostResponse[].class);
-
-        //AddBookPostResponse[] addBookPostResponses = response.as(AddBookPostResponse[].class);
-
-
-        String actualID = addBookPostResponses[0].getID();
-        String actualMsg = addBookPostResponses[0].getMsg();
-
-        System.out.println("Response ID: " + actualID);
-        System.out.println("Response Msg: " + actualMsg);
-        Assert.assertEquals(actualID, "1222312AA4");*/
-
-
     }
 
-    @Test
-    public void verifyPOSTAddBookNegativeScenario() throws JsonProcessingException {
+    @Test (priority = 1)
+    public void verifyPOSTAddBookNegativeScenario() {
 
         RestAssured.baseURI = "http://216.10.245.166";
         RequestSpecification request = RestAssured.given();
@@ -75,30 +52,11 @@ public class TestSet1 {
         System.out.println("POST - AddBook Response Status: " + statusCode);
         Assert.assertEquals(response22.getStatusCode(), 404);
 
-        /*String json = response.asString();
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-
-        AddBookPostResponse[] addBookPostResponses = mapper.readValue(json, AddBookPostResponse[].class);
-
-        //AddBookPostResponse[] addBookPostResponses = response.as(AddBookPostResponse[].class);
-
-
-        String actualID = addBookPostResponses[0].getID();
-        String actualMsg = addBookPostResponses[0].getMsg();
-
-        System.out.println("Response ID: " + actualID);
-        System.out.println("Response Msg: " + actualMsg);
-        Assert.assertEquals(actualID, "1222312AA4");*/
-
-
     }
 
 
-    @Test
-    public void verifyAddBookGetBookDeleteBookAddBookFlow() throws JsonProcessingException, ParseException {
+    @Test (priority = 2)
+    public void verifyAddBookGetBookDeleteBookAddBookFlow() throws  ParseException {
 
         RestAssured.baseURI = "http://216.10.245.166";
         RequestSpecification request = RestAssured.given();
@@ -123,7 +81,7 @@ public class TestSet1 {
                 .get("/Library/GetBook.php");
 
         String responseGetBook = response2.toString();
-        //JSONObject responseGetBookParams = (JSONObject) parser.parse(responseGetBook);
+
         Assert.assertEquals(response2.getStatusCode(), 200);
 
         JSONObject requestParamsDelete = new JSONObject();
@@ -133,8 +91,6 @@ public class TestSet1 {
         Response response3 = request.post("/Library/DeleteBook.php");
 
         String responseDeleteBook = response3.asString();
-        //System.out.println(responseOutput);
-
 
         JSONObject responseDeleteBookParams = (JSONObject) parser.parse(responseDeleteBook);
         String deleteMsg = responseDeleteBookParams.get("msg").toString();
@@ -150,7 +106,7 @@ public class TestSet1 {
         JSONObject responseGetBookParams2 = (JSONObject) parser.parse(responseGetBook2);
         String responseMsg = responseGetBookParams2.get("msg").toString();
         Assert.assertEquals(responseMsg, "The book by requested bookid / author name does not exists!");
-        //Assert.assertEquals(response2.getStatusCode(), 200);
+
 
         JSONObject addBookRequest2 = new JSONObject();
         addBookRequest2.put("name", "Agile1");

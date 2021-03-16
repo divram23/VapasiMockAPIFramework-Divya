@@ -16,14 +16,12 @@ public class TestMethods {
     public static String responseMsg = "";
     public static String bookID = "";
 
-    //public static String aisle = "";
+
     public Random random = new Random();
 
 
     public String rawAisle() {
 
-        //int rawAisle = Integer.parseInt(aisle);
-        //rawAisle++;
         int rawAisle = random.nextInt(999)+1;
         String aisleNew = Integer.toString(rawAisle);
         return aisleNew;
@@ -45,13 +43,12 @@ public class TestMethods {
         System.out.println("Status Code: " + response1.getStatusCode());
 
         String responseAddBook = response1.asString();
-        //System.out.println(responseAddBook);
 
         responseCode = response1.getStatusCode();
 
         JSONParser parser = new JSONParser();
         JSONObject responseAddBookParams = (JSONObject) parser.parse(responseAddBook);
-//        bookID = responseAddBookParams.get("ID").toString();
+
 
         if (responseCode == 200) {
             responseMsg = responseAddBookParams.get("Msg").toString();
@@ -125,8 +122,6 @@ public class TestMethods {
                 .get("/Library/GetBook.php");
 
 
-
-        //List<String> jsonResponse = response2.jsonPath().getList("$");
         List<String> jsonResponse = response2.jsonPath().getList("book_name");
 
         int bookCount = jsonResponse.size();
@@ -136,28 +131,11 @@ public class TestMethods {
         String bookNames = response2.jsonPath().getString("book_name");
         System.out.println(bookNames);
 
-        //int bookCount = bookNames.length();
-        //System.out.println(bookCount);
-
-        /*String responseGetBookByAuthor = response2.asString();
-        System.out.println(responseGetBookByAuthor);
-
-
-        JSONObject responseAddBookParams = (JSONObject) parser.parse(responseGetBookByAuthor);
-        int bookCount = 0;
-        for (int i = 0; i < responseAddBookParams.size(); i++) {
-            JSONObject bookName = (JSONObject) responseAddBookParams.get("book_name");
-            bookCount++;
-            System.out.println(bookName.toString());
-        }
-*/
-        //Assert.assertEquals(bookCount, 3);
-
         return bookCount;
     }
 
     public void getBookByID(String ID) throws ParseException {
-        //RestAssured.defaultParser = Parser.JSON;
+
         Response response4 = RestAssured.given().queryParam("ID", ID)
                 .get("/Library/GetBook.php");
 
@@ -192,21 +170,11 @@ public class TestMethods {
         else
             System.out.println("Not Valid response!!");
 
-
-
-       /* if (responseCode == 404) {
-            responseMsg = responseGetBookParams2.get("msg").toString();
-            System.out.println(responseMsg);
-        } else if (responseCode == 200) {
-            System.out.println("GetBookByID Response Code: " + responseCode);
-        } else
-            System.out.println("Not Valid response!!");*/
-
     }
 
 
     public void deleteBookByID(String bookID) throws ParseException {
-        //RestAssured.defaultParser = Parser.JSON;
+
         JSONObject requestParamsDelete = new JSONObject();
         requestParamsDelete.put("ID", bookID);
 
@@ -214,7 +182,6 @@ public class TestMethods {
                 .post("/Library/DeleteBook.php");
 
         String responseDeleteBook = response5.asString();
-        //System.out.println(responseOutput);
 
         responseCode = response5.getStatusCode();
         JSONParser parser = new JSONParser();
@@ -244,25 +211,11 @@ public void deleteBookByAuthorName(String authorName6) throws ParseException {
     String responseGetBookByAuthor = response6.asString();
     System.out.println(responseGetBookByAuthor);
 
-
-    /*JSONObject responseAddBookParams = (JSONObject) parser.parse(responseGetBookByAuthor);
-int bookCount = 0;
-    for(int i =0; i < responseAddBookParams.size(); i++)
-    {
-        JSONObject author = (JSONObject) responseAddBookParams.get("author");
-        bookCount++;
-        System.out.println(bookName.toString());
-    }*/
-
     List<String> jsonResponse = response6.jsonPath().getList("book_name");
 
     int bookCount = jsonResponse.size();
 
-    System.out.println(bookCount);
-
-
-    /*String bookNames = response6.jsonPath().getString("book_name");
-    System.out.println(bookNames);*/
+    //System.out.println(bookCount);
 
     String isbn1 = response6.jsonPath().getString("isbn[0]");
     String aisle1 = response6.jsonPath().getString("aisle[0]");
@@ -276,7 +229,6 @@ int bookCount = 0;
             .post("/Library/DeleteBook.php");
 
     String responseDeleteBook = response7.asString();
-    //System.out.println(responseOutput);
 
     responseCode = response7.getStatusCode();
     JSONParser parser = new JSONParser();
